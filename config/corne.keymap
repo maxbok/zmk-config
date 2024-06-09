@@ -41,6 +41,9 @@
     tapping-term-ms = <150>;
 };
 
+&sl {
+    release-after-ms = <2000>;
+};
 
 / {
     behaviors {
@@ -79,7 +82,7 @@
             bindings = <
    &kp GRAVE    &kp EXCL    &kp AT      &kp HASH    &kp DLLR    &kp PRCNT   &kp CARET   &kp AMPS    &kp ASTRK   &kp LPAR    &kp RPAR    ________
    ________     &kp N1      &kp N2      &kp N3      &kp N4      &kp N5      &kp N6      &kp N7      &kp N8      &kp N9      &kp N0      &kp BSLH
-   ________     &tog UTILS  &kp SEMI    &kp COLON   &kp MINUS   &kp EQUAL   &kp LBRC    &kp LBKT    &kp RBKT    &kp RBRC    XXXXXXXX    ________
+   ________     &sl UTILS   &kp SEMI    &kp COLON   &kp MINUS   &kp EQUAL   &kp LBRC    &kp LBKT    &kp RBKT    &kp RBRC    XXXXXXXX    ________
                                         ________    ________    ________    ________    ________    ________
                                         >;
         };
@@ -99,7 +102,7 @@
             bindings = <
    XXXXXXXX     XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    &bt BT_CLR  XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
    XXXXXXXX     &bt BTSEL0  &bt BTSEL1  &bt BTSEL2  &bt BTSEL3  &bt BTSEL4  XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
-   XXXXXXXX     &tog UTILS  XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
+   XXXXXXXX     XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
                                         XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
                                         >;
         };
