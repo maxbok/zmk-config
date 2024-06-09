@@ -42,39 +42,43 @@
                 compatible = "zmk,keymap";
 
                 default_layer {
+                    display-name = "Base";
                     bindings = <
    &kp ESC      &kp Q       &kp W       &kp E       &kp R       &kp T       &kp Y       &kp U       &kp I       &kp O       &kp P       &kp BSPC
    CTRL_TAB     &kp A       &kp S       &kp D       &kp F       &kp G       &kp H       &kp J       &kp K       &kp L       &kp SQT     &kp RET
    &kp LSHFT    &kp Z       &kp X       &kp C       &kp V       &kp B       &kp N       &kp M       &kp COMMA   &kp DOT     SLSH_NAV    SHFT_DEL
                                         &kp LALT    &kp LCMD    &mo SYMBOLS &kp SPACE   &kp RCMD    &kp RALT
-                                    >;
+                                        >;
                 };
 
                 symbols_layer {
-                        bindings = <
+                    display-name = "Symbols";
+                    bindings = <
    &kp GRAVE    &kp EXCL    &kp AT      &kp HASH    &kp DLLR    &kp PRCNT   &kp CARET   &kp AMPS    &kp ASTRK   &kp LPAR    &kp RPAR    ________
    ________     &kp N1      &kp N2      &kp N3      &kp N4      &kp N5      &kp N6      &kp N7      &kp N8      &kp N9      &kp N0      &kp BSLH
    ________     &tog UTILS  &kp SEMI    &kp COLON   &kp MINUS   &kp EQUAL   &kp LBRC    &kp LBKT    &kp RBKT    &kp RBRC    XXXXXXXX    ________
                                         ________    ________    ________    ________    ________    ________
-                        >;
+                                        >;
                 };
 
                 nav_layer {
-                        bindings = <
+                    display-name = "Nav";
+                    bindings = <
    &kp GRAVE    &kp BRI_DN  &kp BRI_UP  XXXXXXXX    &kp VOL_DN  &kp VOL_UP  XXXXXXXX    &kp C_PREV  &kp K_PP    &kp C_NEXT  XXXXXXXX    XXXXXXXX
    ________     XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    &kp LEFT    &kp DOWN    &kp UP      &kp RIGHT   XXXXXXXX    XXXXXXXX
    ________     XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    &kp WEB_PRV &kp PRV_TAB &kp NXT_TAB &kp WEB_NXT XXXXXXXX    XXXXXXXX
                                         ________    ________    ________    ________    ________    ________
-                        >;
+                                        >;
                 };
 
                 utils_layer {
-                        bindings = <
+                    display-name = "Utils";
+                    bindings = <
    XXXXXXXX     XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    &bt BT_CLR  XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
    XXXXXXXX     &bt BTSEL0  &bt BTSEL1  &bt BTSEL2  &bt BTSEL3  &bt BTSEL4  XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
    XXXXXXXX     &tog UTILS  XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
                                         XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX
-                        >;
+                                        >;
                 };
         };
 };
