@@ -90,7 +90,7 @@
         nav_layer {
             display-name = "Nav";
             bindings = <
-   &kp GRAVE    &kp BRI_DN  &kp BRI_UP  XXXXXXXX    &kp VOL_DN  &kp VOL_UP  XXXXXXXX    &kp C_PREV  &kp K_PP    &kp C_NEXT  XXXXXXXX    XXXXXXXX
+   &kp GRAVE    &kp BRI_DN  &kp BRI_UP  XXXXXXXX    &kp VOL_DN  &kp VOL_UP  XXXXXXXX    &kp C_PREV  &kp C_PP    &kp C_NEXT  XXXXXXXX    XXXXXXXX
    ________     XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    &kp LEFT    &kp DOWN    &kp UP      &kp RIGHT   XXXXXXXX    XXXXXXXX
    ________     XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    XXXXXXXX    &kp WEB_PRV &kp PRV_TAB &kp NXT_TAB &kp WEB_NXT XXXXXXXX    XXXXXXXX
                                         ________    ________    ________    ________    ________    ________
