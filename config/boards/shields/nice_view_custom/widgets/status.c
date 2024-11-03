@@ -156,7 +156,7 @@ static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     // draw_profiles(canvas, state, 3, 4);
 
     // Draw layer
-    int text_y_offset = 49// 5;
+    int text_y_offset = 49;// 5;
     if (state->layer_label == NULL) {
         char text[10] = {};
 
