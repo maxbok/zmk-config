@@ -106,9 +106,11 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     int profile_height =28;
     int profile_y_margin = 4;
 
-    char[7] profile_names[4] = {
-        "MacBook", "iPhone", "iPad", "TV"
-    };
+    const char* profile_names[4];
+    profile_names[0] = "MacBook";
+    profile_names[1] = "iPhone";
+    profile_names[2] = "iPad";
+    profile_names[3] = "TV";
 
     for (int i = 0; i < 4; i++) {
         bool selected = i == state->active_profile_index;
