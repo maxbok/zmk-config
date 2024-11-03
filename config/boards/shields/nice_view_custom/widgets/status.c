@@ -40,7 +40,8 @@ struct layer_status_state {
 
 // Draw profiles
 
-static void draw_profiles(lv_obj_t *widget, const struct status_state *state, int start_index, int stop_index) {
+// static void draw_profiles(lv_obj_t *widget, const struct status_state *state, int start_index, int stop_index) {
+static void draw_profiles(lv_obj_t *widget, int start_index, int stop_index) {
     lv_obj_t *canvas = lv_obj_get_child(widget, 1);
 
     lv_draw_rect_dsc_t rect_black_dsc;
@@ -61,7 +62,7 @@ static void draw_profiles(lv_obj_t *widget, const struct status_state *state, in
     profile_names[3] = "TV";
 
     for (int i = start_index; i < stop_index; i++) {
-        bool selected = i == state->active_profile_index;
+        bool selected = false; //i == state->active_profile_index;
 
         int y_offset = profile_height * i;
 
@@ -134,7 +135,7 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
 
     // Draw profiles (top)
-    draw_profiles(canvas, &state, 0, 3);
+    draw_profiles(canvas, 0, 3);
 
     // Rotate canvas
     rotate_canvas(canvas, cbuf);
