@@ -26,8 +26,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
-int MIDDLE_WIDGET_HEIGHT = 94;
-
 struct output_status_state {
     struct zmk_endpoint_instance selected_endpoint;
     int active_profile_index;
@@ -39,6 +37,47 @@ struct layer_status_state {
     uint8_t index;
     const char *label;
 };
+
+// Draw profiles
+
+static void draw_profiles(lv_obj_t *widget, const struct status_state *state, int start_index, int stop_index) {
+    lv_obj_t *canvas = lv_obj_get_child(widget, 1);
+
+    lv_draw_rect_dsc_t rect_black_dsc;
+    init_rect_dsc(&rect_black_dsc, LVGL_BACKGROUND);
+    lv_draw_rect_dsc_t rect_white_dsc;
+    init_rect_dsc(&rect_white_dsc, LVGL_FOREGROUND);
+    lv_draw_label_dsc_t label_dsc;
+    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_12, LV_TEXT_ALIGN_CENTER);
+    lv_draw_label_dsc_t label_dsc_black;
+    init_label_dsc(&label_dsc_black, LVGL_BACKGROUND, &lv_font_montserrat_12, LV_TEXT_ALIGN_CENTER);
+
+    int profile_height = 22;
+
+    const char* profile_names[4];
+    profile_names[0] = "MacBook";
+    profile_names[1] = "iPhone";
+    profile_names[2] = "iPad";
+    profile_names[3] = "TV";
+
+    for (int i = start_index; i < stop_index; i++) {
+        bool selected = i == state->active_profile_index;
+
+        int y_offset = profile_height * i;
+
+        lv_canvas_draw_rect(canvas, 0, y_offset, CANVAS_SIZE, profile_height, &rect_white_dsc);
+
+        lv_canvas_draw_rect(canvas, 1, y_offset + 1, CANVAS_SIZE - 2, profile_height - 2, &rect_black_dsc);
+
+        if (selected) {
+            lv_canvas_draw_rect(canvas, 2, y_offset + 2, CANVAS_SIZE - 4, profile_height - 4, &rect_white_dsc);
+        }
+
+        lv_canvas_draw_text(canvas, 0, y_offset + 4, CANVAS_SIZE, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
+    }
+}
+
+// Draw widgets
 
 static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_state *state) {
     lv_obj_t *canvas = lv_obj_get_child(widget, 0);
@@ -89,47 +128,13 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
 
     lv_draw_rect_dsc_t rect_black_dsc;
     init_rect_dsc(&rect_black_dsc, LVGL_BACKGROUND);
-    lv_draw_rect_dsc_t rect_white_dsc;
-    init_rect_dsc(&rect_white_dsc, LVGL_FOREGROUND);
-    lv_draw_arc_dsc_t arc_dsc;
-    init_arc_dsc(&arc_dsc, LVGL_FOREGROUND, 2);
-    lv_draw_arc_dsc_t arc_dsc_filled;
-    init_arc_dsc(&arc_dsc_filled, LVGL_FOREGROUND, 9);
-    lv_draw_label_dsc_t label_dsc;
-    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_12, LV_TEXT_ALIGN_CENTER);
-    lv_draw_label_dsc_t label_dsc_black;
-    init_label_dsc(&label_dsc_black, LVGL_BACKGROUND, &lv_font_montserrat_12, LV_TEXT_ALIGN_CENTER);
 
 
     // Fill background
-    lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, MIDDLE_WIDGET_HEIGHT, &rect_black_dsc);
+    lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
 
-    // Draw profiles
-
-    int profile_height = 22;
-    int profile_y_margin = 2;
-
-    const char* profile_names[4];
-    profile_names[0] = "MacBook";
-    profile_names[1] = "iPhone";
-    profile_names[2] = "iPad";
-    profile_names[3] = "TV";
-
-    for (int i = 0; i < 4; i++) {
-        bool selected = i == state->active_profile_index;
-
-        int y_offset = (profile_height + profile_y_margin) * i;
-
-        lv_canvas_draw_rect(canvas, 0, y_offset, CANVAS_SIZE, profile_height, &rect_white_dsc);
-
-        lv_canvas_draw_rect(canvas, 1, y_offset + 1, CANVAS_SIZE - 2, profile_height - 2, &rect_black_dsc);
-
-        if (selected) {
-            lv_canvas_draw_rect(canvas, 2, y_offset + 2, CANVAS_SIZE - 4, profile_height - 4, &rect_white_dsc);
-        }
-
-        lv_canvas_draw_text(canvas, 0, y_offset + 4, CANVAS_SIZE, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
-    }
+    // Draw profiles (top)
+    draw_profiles(canvas, state, 0, 3);
 
     // Rotate canvas
     rotate_canvas(canvas, cbuf);
@@ -144,18 +149,22 @@ static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_16, LV_TEXT_ALIGN_CENTER);
 
     // Fill background
-    lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
+    // lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
+    lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &label_dsc);
 
-    // Draw layer
-    if (state->layer_label == NULL) {
-        char text[10] = {};
+    // // Draw profiles (bottom)
+    // draw_profiles(canvas, state, 3, 4);
 
-        sprintf(text, "LAYER %i", state->layer_index);
+    // // Draw layer
+    // if (state->layer_label == NULL) {
+    //     char text[10] = {};
 
-        lv_canvas_draw_text(canvas, 0, 5, 68, &label_dsc, text);
-    } else {
-        lv_canvas_draw_text(canvas, 0, 5, 68, &label_dsc, state->layer_label);
-    }
+    //     sprintf(text, "LAYER %i", state->layer_index);
+
+    //     lv_canvas_draw_text(canvas, 0, 5, 68, &label_dsc, text);
+    // } else {
+    //     lv_canvas_draw_text(canvas, 0, 5, 68, &label_dsc, state->layer_label);
+    // }
 
     // Rotate canvas
     rotate_canvas(canvas, cbuf);
@@ -262,8 +271,8 @@ int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     lv_canvas_set_buffer(top, widget->cbuf, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
 
     lv_obj_t *middle = lv_canvas_create(widget->obj);
-    lv_obj_align(middle, LV_ALIGN_TOP_LEFT, 68, 0);
-    lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, MIDDLE_WIDGET_HEIGHT, LV_IMG_CF_TRUE_COLOR);
+    lv_obj_align(middle, LV_ALIGN_TOP_LEFT, 66, 0);
+    lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
 
     lv_obj_t *bottom = lv_canvas_create(widget->obj);
     lv_obj_align(bottom, LV_ALIGN_TOP_LEFT, -44, 0);
