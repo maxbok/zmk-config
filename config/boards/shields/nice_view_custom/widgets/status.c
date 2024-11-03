@@ -125,7 +125,7 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
             lv_canvas_draw_rect(canvas, 2, y_offset + 2, CANVAS_SIZE - 4, profile_height - 4, &rect_white_dsc);
         }
 
-        lv_canvas_draw_text(canvas, 6, y_offset + 6, 16, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
+        lv_canvas_draw_text(canvas, 0, y_offset + 6, CANVAS_SIZE, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
     }
 
     // Rotate canvas
@@ -258,7 +258,7 @@ int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     lv_obj_align(top, LV_ALIGN_TOP_RIGHT, 0, 0);
     lv_canvas_set_buffer(top, widget->cbuf, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
     lv_obj_t *middle = lv_canvas_create(widget->obj);
-    lv_obj_align(middle, LV_ALIGN_TOP_LEFT, 24, 0);
+    lv_obj_align(middle, LV_ALIGN_TOP_LEFT, 0, 0);
     lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
     lv_obj_t *bottom = lv_canvas_create(widget->obj);
     lv_obj_align(bottom, LV_ALIGN_TOP_LEFT, -44, 0);
