@@ -132,7 +132,7 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
 
     // Draw profiles (top)
-    draw_profiles(canvas, &state, 0, 3);
+    draw_profiles(canvas, state, 0, 3);
 
     // Rotate canvas
     rotate_canvas(canvas, cbuf);
@@ -151,7 +151,7 @@ static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &label_dsc);
 
     // // Draw profiles (bottom)
-    // draw_profiles(canvas, &state, 3, 4);
+    // draw_profiles(canvas, state, 3, 4);
 
     // // Draw layer
     // if (state->layer_label == NULL) {
