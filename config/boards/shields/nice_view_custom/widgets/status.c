@@ -115,7 +115,7 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     for (int i = 0; i < 4; i++) {
         bool selected = i == state->active_profile_index;
 
-        int y_offset = (profile_height + profile_y_margin) * i
+        int y_offset = (profile_height + profile_y_margin) * i;
 
         lv_canvas_draw_rect(canvas, 0, y_offset, CANVAS_SIZE, profile_height, &rect_white_dsc);
 
