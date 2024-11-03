@@ -145,6 +145,8 @@ static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     init_rect_dsc(&rect_black_dsc, LVGL_BACKGROUND);
     lv_draw_label_dsc_t label_dsc;
     init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_16, LV_TEXT_ALIGN_CENTER);
+    lv_draw_label_dsc_t label_black_dsc;
+    init_label_dsc(&label_black_dsc, LVGL_BACKGROUND, &lv_font_montserrat_16, LV_TEXT_ALIGN_CENTER);
 
     // Fill background
     // lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
@@ -153,16 +155,17 @@ static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     // // Draw profiles (bottom)
     // draw_profiles(canvas, state, 3, 4);
 
-    // // Draw layer
-    // if (state->layer_label == NULL) {
-    //     char text[10] = {};
+    // Draw layer
+    int text_y_offset = 49// 5;
+    if (state->layer_label == NULL) {
+        char text[10] = {};
 
-    //     sprintf(text, "LAYER %i", state->layer_index);
+        sprintf(text, "LAYER %i", state->layer_index);
 
-    //     lv_canvas_draw_text(canvas, 0, 5, 68, &label_dsc, text);
-    // } else {
-    //     lv_canvas_draw_text(canvas, 0, 5, 68, &label_dsc, state->layer_label);
-    // }
+        lv_canvas_draw_text(canvas, 0, text_y_offset, CANVAS_SIZE, &label_black_dsc, text);
+    } else {
+        lv_canvas_draw_text(canvas, 0, text_y_offset, CANVAS_SIZE, &label_black_dsc, state->layer_label);
+    }
 
     // Rotate canvas
     rotate_canvas(canvas, cbuf);
@@ -273,7 +276,7 @@ int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
 
     lv_obj_t *bottom = lv_canvas_create(widget->obj);
-    lv_obj_align(bottom, LV_ALIGN_TOP_LEFT, -44, 0);
+    lv_obj_align(bottom, LV_ALIGN_TOP_LEFT, 0, 0);
     lv_canvas_set_buffer(bottom, widget->cbuf3, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
 
     sys_slist_append(&widgets, &widget->node);
