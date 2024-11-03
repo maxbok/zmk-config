@@ -145,26 +145,23 @@ static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     init_rect_dsc(&rect_black_dsc, LVGL_BACKGROUND);
     lv_draw_label_dsc_t label_dsc;
     init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_16, LV_TEXT_ALIGN_CENTER);
-    lv_draw_label_dsc_t label_black_dsc;
-    init_label_dsc(&label_black_dsc, LVGL_BACKGROUND, &lv_font_montserrat_16, LV_TEXT_ALIGN_CENTER);
 
     // Fill background
-    // lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
-    lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &label_dsc);
+    lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
 
-    // // Draw profiles (bottom)
-    // draw_profiles(canvas, state, 3, 4);
+    // Draw profiles (bottom)
+    draw_profiles(canvas, state, 3, 4);
 
     // Draw layer
-    int text_y_offset = 49;// 5;
+    int text_y_offset = 49;
     if (state->layer_label == NULL) {
         char text[10] = {};
 
         sprintf(text, "LAYER %i", state->layer_index);
 
-        lv_canvas_draw_text(canvas, 0, text_y_offset, CANVAS_SIZE, &label_black_dsc, text);
+        lv_canvas_draw_text(canvas, 0, text_y_offset, CANVAS_SIZE, &label_dsc, text);
     } else {
-        lv_canvas_draw_text(canvas, 0, text_y_offset, CANVAS_SIZE, &label_black_dsc, state->layer_label);
+        lv_canvas_draw_text(canvas, 0, text_y_offset, CANVAS_SIZE, &label_dsc, state->layer_label);
     }
 
     // Rotate canvas
