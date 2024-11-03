@@ -61,7 +61,7 @@ static void draw_profiles(lv_obj_t *canvas, const struct status_state *state, in
     for (int i = start_index; i < stop_index; i++) {
         bool selected = i == state->active_profile_index;
 
-        int y_offset = profile_height * i;
+        int y_offset = profile_height * (i - start_index);
 
         lv_canvas_draw_rect(canvas, 0, y_offset, CANVAS_SIZE, profile_height, &rect_white_dsc);
 
