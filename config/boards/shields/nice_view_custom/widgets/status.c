@@ -41,8 +41,6 @@ struct layer_status_state {
 // Draw profiles
 
 static void draw_profiles(lv_obj_t *canvas, const struct status_state *state, int start_index, int stop_index) {
-    lv_draw_rect_dsc_t rect_black_dsc;
-    init_rect_dsc(&rect_black_dsc, LVGL_BACKGROUND);
     lv_draw_rect_dsc_t rect_white_dsc;
     init_rect_dsc(&rect_white_dsc, LVGL_FOREGROUND);
     lv_draw_label_dsc_t label_dsc;
@@ -63,12 +61,8 @@ static void draw_profiles(lv_obj_t *canvas, const struct status_state *state, in
 
         int y_offset = profile_height * (i - start_index);
 
-        lv_canvas_draw_rect(canvas, 0, y_offset, CANVAS_SIZE, profile_height, &rect_white_dsc);
-
-        lv_canvas_draw_rect(canvas, 1, y_offset + 1, CANVAS_SIZE - 2, profile_height - 2, &rect_black_dsc);
-
         if (selected) {
-            lv_canvas_draw_rect(canvas, 2, y_offset + 2, CANVAS_SIZE - 4, profile_height - 4, &rect_white_dsc);
+            lv_canvas_draw_rect(canvas, 0, y_offset, CANVAS_SIZE, profile_height, &rect_white_dsc);
         }
 
         lv_canvas_draw_text(canvas, 0, y_offset + 4, CANVAS_SIZE, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
