@@ -101,26 +101,29 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     // Fill background
     lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
 
-    // Draw circles
-    int circle_offsets[5][2] = {
-        {13, 13}, {55, 13}, {34, 34}, {13, 55}, {55, 55},
+    // Draw profiles
+
+    int profile_height =28;
+    int profile_y_margin = 4;
+
+    char[7] profile_names[4] = {
+        "MacBook", "iPhone", "iPad", "TV"
     };
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
         bool selected = i == state->active_profile_index;
 
-        lv_canvas_draw_arc(canvas, circle_offsets[i][0], circle_offsets[i][1], 13, 0, 360,
-                           &arc_dsc);
+        int y_offset = (profile_height + profile_y_margin) * i
+
+        lv_canvas_draw_rect(canvas, 0, y_offset, CANVAS_SIZE, profile_height, &rect_white_dsc);
+
+        lv_canvas_draw_rect(canvas, 1, y_offset + 1, CANVAS_SIZE - 2, profile_height - 2, &rect_black_dsc);
 
         if (selected) {
-            lv_canvas_draw_arc(canvas, circle_offsets[i][0], circle_offsets[i][1], 9, 0, 359,
-                               &arc_dsc_filled);
+            lv_canvas_draw_rect(canvas, 2, y_offset + 2, CANVAS_SIZE - 4, profile_height - 4, &rect_white_dsc);
         }
 
-        char label[2];
-        snprintf(label, sizeof(label), "%d", i + 1);
-        lv_canvas_draw_text(canvas, circle_offsets[i][0] - 8, circle_offsets[i][1] - 10, 16,
-                            (selected ? &label_dsc_black : &label_dsc), label);
+        lv_canvas_draw_text(canvas, 6, y_offset + 6, 16, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
     }
 
     // Rotate canvas
