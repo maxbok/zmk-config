@@ -94,17 +94,17 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
     lv_draw_arc_dsc_t arc_dsc_filled;
     init_arc_dsc(&arc_dsc_filled, LVGL_FOREGROUND, 9);
     lv_draw_label_dsc_t label_dsc;
-    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_18, LV_TEXT_ALIGN_CENTER);
+    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_14, LV_TEXT_ALIGN_CENTER);
     lv_draw_label_dsc_t label_dsc_black;
-    init_label_dsc(&label_dsc_black, LVGL_BACKGROUND, &lv_font_montserrat_18, LV_TEXT_ALIGN_CENTER);
+    init_label_dsc(&label_dsc_black, LVGL_BACKGROUND, &lv_font_montserrat_14, LV_TEXT_ALIGN_CENTER);
 
     // Fill background
     lv_canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
 
     // Draw profiles
 
-    int profile_height =28;
-    int profile_y_margin = 4;
+    int profile_height =20;
+    int profile_y_margin = 2;
 
     const char* profile_names[4];
     profile_names[0] = "MacBook";
@@ -125,7 +125,7 @@ static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status
             lv_canvas_draw_rect(canvas, 2, y_offset + 2, CANVAS_SIZE - 4, profile_height - 4, &rect_white_dsc);
         }
 
-        lv_canvas_draw_text(canvas, 0, y_offset + 6, CANVAS_SIZE, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
+        lv_canvas_draw_text(canvas, 0, y_offset + 2, CANVAS_SIZE, (selected ? &label_dsc_black : &label_dsc), profile_names[i]);
     }
 
     // Rotate canvas
@@ -257,9 +257,11 @@ int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     lv_obj_t *top = lv_canvas_create(widget->obj);
     lv_obj_align(top, LV_ALIGN_TOP_RIGHT, 0, 0);
     lv_canvas_set_buffer(top, widget->cbuf, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
+
     lv_obj_t *middle = lv_canvas_create(widget->obj);
-    lv_obj_align(middle, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_align(middle, LV_ALIGN_TOP_LEFT, 84, 0);
     lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
+
     lv_obj_t *bottom = lv_canvas_create(widget->obj);
     lv_obj_align(bottom, LV_ALIGN_TOP_LEFT, -44, 0);
     lv_canvas_set_buffer(bottom, widget->cbuf3, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
